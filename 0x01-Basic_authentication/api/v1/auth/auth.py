@@ -20,8 +20,7 @@ class Auth():
             if p[-2] == "*":
                 if path.startswith(p[:-2]):
                     return False
-            return True
-        return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """Returns a str"""
