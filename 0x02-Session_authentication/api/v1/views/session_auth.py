@@ -52,7 +52,7 @@ def logout():
 
     delete = auth.destroy_session(request)
 
-    if delete is None:
+    if delete is False:
         abort(404)
 
     return jsonify({}), 200
