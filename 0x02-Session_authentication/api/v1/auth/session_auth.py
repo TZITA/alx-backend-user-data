@@ -12,7 +12,7 @@ class SessionAuth(Auth):
         """creates a Session ID for a user_id"""
         if user_id is None or type(user_id) != str:
             return None
-        session_id = uuid.uuid4()
+        session_id = str(uuid.uuid4())
         SessionAuth.user_id_by_session_id[session_id] = user_id
 
         return session_id
@@ -21,4 +21,9 @@ class SessionAuth(Auth):
         """Returns a User ID based on a Session ID"""
         if session_id is None or type(session_id) != str:
             return None
-        return SessionAuth.user_id_by_session_id.get(session_id)
+
+        try:
+            u_id = SessionAuth.user_id_by_session_id[session_id]
+            return u_id
+        except Exception:
+            return None
