@@ -43,11 +43,11 @@ class SessionAuth(Auth):
             return False
 
         sess_id = self.session_cookie(request)
-        if request.cookies.get(sess_id) is None:
+        if not sess_id:
             return False
 
         user_id = self.user_id_for_session_id(sess_id)
-        if user_id is None:
+        if not user_id:
             return False
 
         try:
