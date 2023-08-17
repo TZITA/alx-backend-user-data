@@ -18,8 +18,6 @@ def index() -> str:
 def users() -> str:
     """
     POST /users
-    Returns:
-        register a user
     """
     email = request.form.get('email')
     password = request.form.get('password')
@@ -28,6 +26,21 @@ def users() -> str:
         return jsonify({"email": f"{email}", "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"})
+
+
+@app.route('/sessions', methods=['POST'], strict_slashes=False)
+def login() -> str:
+    """
+    POST /sessions
+    """
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if AUTH.valid_login(email, password):
+        session_id = AUTH.create_session(email)
+        result = jsonify({"email": f'{email}', "message": "logged in"})
+        result.set_cookie("session_id", session_id)
+        return res
+    abort(401)
 
 
 if __name__ == "__main__":
