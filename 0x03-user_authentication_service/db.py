@@ -55,7 +55,7 @@ class DB:
 
         return user
 
-    def update_user(self, user_id: int, **kwargs):
+    def update_user(self, user_id: int, **kwargs) -> None:
         """Returns None"""
         user = self.find_user_by(id=user_id)
 
